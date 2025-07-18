@@ -7,14 +7,13 @@ class MealItem extends StatelessWidget {
   const MealItem({super.key, required this.meal, required this.onSelectMeal});
   final Meal meal;
   final void Function(BuildContext context, Meal meal) onSelectMeal;
+
   String get complexityText {
-    return meal.complexity.name[0].toUpperCase() +
-        meal.complexity.name.substring(1);
+    return meal.complexity.name[0].toUpperCase() + meal.complexity.name.substring(1);
   }
 
   String get affordabilityText {
-    return meal.affordability.name[0].toUpperCase() +
-        meal.affordability.name.substring(1);
+    return meal.affordability.name[0].toUpperCase() + meal.affordability.name.substring(1);
   }
 
   @override
@@ -22,7 +21,7 @@ class MealItem extends StatelessWidget {
     return Card(
       margin: const EdgeInsets.all(8),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadiusGeometry.circular(8),
+        borderRadius: BorderRadius.circular(8), // <-- FIX HERE
       ),
       clipBehavior: Clip.hardEdge,
       elevation: 2,
@@ -30,7 +29,6 @@ class MealItem extends StatelessWidget {
         onTap: () {
           onSelectMeal(context, meal);
         },
-
         child: Stack(
           children: [
             FadeInImage(
@@ -58,7 +56,7 @@ class MealItem extends StatelessWidget {
                       textAlign: TextAlign.center,
                       softWrap: true,
                       overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
@@ -68,17 +66,11 @@ class MealItem extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        MealItemTrait(
-                          icon: Icons.schedule,
-                          label: '${meal.duration} min',
-                        ),
+                        MealItemTrait(icon: Icons.schedule, label: '${meal.duration} min'),
                         const SizedBox(width: 12),
                         MealItemTrait(icon: Icons.work, label: complexityText),
                         const SizedBox(width: 12),
-                        MealItemTrait(
-                          icon: Icons.attach_money,
-                          label: affordabilityText,
-                        ),
+                        MealItemTrait(icon: Icons.attach_money, label: affordabilityText),
                       ],
                     ),
                   ],
