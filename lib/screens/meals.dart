@@ -2,11 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:meals_app/models/meal.dart';
 
 class MealsScreen extends StatelessWidget {
-  const MealsScreen({
-    super.key,
-    required this.title,
-    required this.meals,
-  });
+  const MealsScreen({super.key, required this.title, required this.meals});
 
   final String title;
   final List<Meal> meals;
@@ -24,16 +20,16 @@ class MealsScreen extends StatelessWidget {
           children: [
             Text(
               'Nothing here',
-              style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                    color: whiteColor,
-                  ),
+              style: Theme.of(
+                context,
+              ).textTheme.titleLarge?.copyWith(color: whiteColor),
             ),
             const SizedBox(height: 16),
             Text(
               'Try selecting a different category!',
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: whiteColor,
-                  ),
+              style: Theme.of(
+                context,
+              ).textTheme.bodyMedium?.copyWith(color: whiteColor),
             ),
           ],
         ),
@@ -45,9 +41,9 @@ class MealsScreen extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: Text(
             meals[index].title,
-            style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                  color: whiteColor,
-                ),
+            style: Theme.of(
+              context,
+            ).textTheme.titleMedium?.copyWith(color: whiteColor),
           ),
         ),
       );
@@ -57,9 +53,9 @@ class MealsScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text(
           title,
-          style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                color: whiteColor,
-              ),
+          style: Theme.of(
+            context,
+          ).textTheme.titleLarge?.copyWith(color: whiteColor),
         ),
       ),
       body: content,

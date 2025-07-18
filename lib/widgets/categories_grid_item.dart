@@ -5,7 +5,7 @@ class CategoriesGridItem extends StatelessWidget {
   const CategoriesGridItem({
     super.key,
     required this.category,
-    required this.onSelectCategory
+    required this.onSelectCategory,
   });
 
   final Category category;
