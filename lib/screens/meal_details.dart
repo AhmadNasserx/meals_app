@@ -2,10 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:meals_app/models/meal.dart';
 
 class MealDetailsScreen extends StatelessWidget {
-  const MealDetailsScreen({super.key, required this.meal, required this.onToggleFavorite});
+  const MealDetailsScreen({
+    super.key,
+    required this.meal,
+    required this.onToggleFavorite,
+    required this.isFavorite,
+  });
 
   final Meal meal;
   final void Function(Meal meal) onToggleFavorite;
+  final bool isFavorite;
 
   @override
   Widget build(BuildContext context) {
@@ -13,10 +19,15 @@ class MealDetailsScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text(meal.title),
         actions: [
-          IconButton(onPressed: (){
-            onToggleFavorite(meal);
-          },
-          icon: Icon(Icons.star))
+          IconButton(
+            onPressed: () {
+              onToggleFavorite(meal);
+              Navigator.of(context).pop(true); // Return true to update UI
+            },
+            icon: Icon(
+              isFavorite ? Icons.star : Icons.star_outline,
+            ),
+          ),
         ],
       ),
       body: SingleChildScrollView(
@@ -30,7 +41,6 @@ class MealDetailsScreen extends StatelessWidget {
               width: double.infinity,
               fit: BoxFit.cover,
             ),
-
             const SizedBox(height: 14),
 
             // Ingredients section
@@ -58,7 +68,6 @@ class MealDetailsScreen extends StatelessWidget {
                 ],
               ),
             ),
-
             const SizedBox(height: 20),
 
             // Steps section
@@ -83,7 +92,10 @@ class MealDetailsScreen extends StatelessWidget {
                         children: [
                           Text(
                             '${i + 1}. ',
-                            style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.bold),
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium
+                                ?.copyWith(fontWeight: FontWeight.bold),
                           ),
                           Expanded(
                             child: Text(
@@ -97,7 +109,6 @@ class MealDetailsScreen extends StatelessWidget {
                 ],
               ),
             ),
-
             const SizedBox(height: 20),
           ],
         ),

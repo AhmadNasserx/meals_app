@@ -9,19 +9,15 @@ class MealsScreen extends StatelessWidget {
     this.title,
     required this.meals,
     required this.onToggleFavorite,
+    required this.favoriteMeals,
+    required this.onSelectMeal,
   });
 
   final String? title;
   final List<Meal> meals;
   final void Function(Meal meal) onToggleFavorite;
-  void selectMeal(BuildContext context, Meal meal) {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (ctx) =>
-            MealDetailsScreen(meal: meal, onToggleFavorite: onToggleFavorite),
-      ),
-    );
-  }
+  final List<Meal> favoriteMeals;
+  final void Function(Meal meal) onSelectMeal;
 
   @override
   Widget build(BuildContext context) {
@@ -36,16 +32,18 @@ class MealsScreen extends StatelessWidget {
           children: [
             Text(
               'Nothing here',
-              style: Theme.of(
-                context,
-              ).textTheme.titleLarge?.copyWith(color: whiteColor),
+              style: Theme.of(context)
+                  .textTheme
+                  .titleLarge
+                  ?.copyWith(color: whiteColor),
             ),
             const SizedBox(height: 16),
             Text(
               'Try selecting a different category!',
-              style: Theme.of(
-                context,
-              ).textTheme.bodyMedium?.copyWith(color: whiteColor),
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyMedium
+                  ?.copyWith(color: whiteColor),
             ),
           ],
         ),
@@ -55,10 +53,13 @@ class MealsScreen extends StatelessWidget {
         itemCount: meals.length,
         itemBuilder: (ctx, index) => MealItem(
           meal: meals[index],
-          onSelectMeal: (context, meal) => selectMeal(context, meal),
+          onSelectMeal: (context, meal) => onSelectMeal(meal),
+          isFavorite: favoriteMeals.contains(meals[index]),
+          onToggleFavorite: onToggleFavorite,
         ),
       );
     }
+
     if (title == null) {
       return content;
     }
@@ -66,9 +67,10 @@ class MealsScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text(
           title!,
-          style: Theme.of(
-            context,
-          ).textTheme.titleLarge?.copyWith(color: whiteColor),
+          style: Theme.of(context)
+              .textTheme
+              .titleLarge
+              ?.copyWith(color: whiteColor),
         ),
       ),
       body: content,
